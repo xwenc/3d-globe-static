@@ -8,6 +8,7 @@ import "../styles/index.scss";
 
 // Local components
 import globe from "./components/globe";
+import camera from "./components/camera";
 import renderer from "./components/renderer";
 
 // Three group objects
@@ -35,7 +36,7 @@ const setupScene = () => {
     scene.add(groups.main);
 
     // Start the requestAnimationFrame loop
-    render.render(scene);
+    render.render(scene, camera());
   });
 
   console.log("groups", groups);
