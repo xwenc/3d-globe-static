@@ -7,9 +7,10 @@ import map from "../images/map.png";
 import "../styles/index.scss";
 
 // Local components
-import globe from "./components/globe";
-import camera from "./components/camera";
-import renderer from "./components/renderer";
+import addGlobe from "./components/globe";
+import addCamera from "./components/camera";
+import addRenderer from "./components/renderer";
+import resize from "./components/resize";
 
 // Three group objects
 const groups = {
@@ -21,14 +22,16 @@ const groups = {
 };
 
 const setupScene = () => {
+  let renderer = addRenderer();
   let scene = new THREE.Scene();
-  const render = renderer();
+  let camera = addCamera();
+
   // Main group that contains everything
   groups.main = new THREE.Group();
   groups.main.name = "Main";
 
   // Render objects
-  globe({ texture: map }).then(res => {
+  addGlobe({ texture: map }).then(res => {
     groups.globe = res;
     groups.main.add(groups.globe);
 
@@ -36,10 +39,15 @@ const setupScene = () => {
     scene.add(groups.main);
 
     // Start the requestAnimationFrame loop
-    render.render(scene, camera());
+    renderer.render(scene, camera);
   });
 
-  console.log("groups", groups);
+  window.addEventListener("resize", () => {
+    resize(renderer, camera);
+    renderer.render(scene, camera);
+  });
+  
+  resize(renderer, camera);
 };
 
 /* INITIALISATION */
