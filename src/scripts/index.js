@@ -10,6 +10,7 @@ import "../styles/index.scss";
 import addGlobe from "./components/globe";
 import addCamera from "./components/camera";
 import addRenderer from "./components/renderer";
+import addControls from "./components/controls";
 import resize from "./components/resize";
 
 // Three group objects
@@ -25,6 +26,7 @@ const setupScene = () => {
   let renderer = addRenderer();
   let scene = new THREE.Scene();
   let camera = addCamera();
+  let controls = addControls(camera, renderer.domElement);
 
   // Main group that contains everything
   groups.main = new THREE.Group();
@@ -39,15 +41,29 @@ const setupScene = () => {
     scene.add(groups.main);
 
     // Start the requestAnimationFrame loop
-    renderer.render(scene, camera);
+    render();
   });
+
+  function render() {
+    renderer.render(scene, camera);
+  };
+
+  function animate() {
+    requestAnimationFrame(animate);
+
+    controls.update();
+
+    render();
+  };
 
   window.addEventListener("resize", () => {
     resize(renderer, camera);
-    renderer.render(scene, camera);
+    render();
   });
-  
+
   resize(renderer, camera);
+
+  animate();
 };
 
 /* INITIALISATION */

@@ -1,4 +1,8 @@
-import { AmbientLight, Color, PerspectiveCamera, PointLight } from "three";
+import {
+  AmbientLight,
+  PerspectiveCamera,
+  PointLight,
+} from "three";
 import { RADIUS, canvas } from "../default";
 
 export default () => {
@@ -8,9 +12,13 @@ export default () => {
   camera.add(ambientLight);
 
   const pointLight = new PointLight("white");
-  
+
   camera.add(pointLight);
 
   camera.position.z = RADIUS * 2.2;
+
+  // let controls = new OrbitControls(camera);
+
+
   return camera;
 };
