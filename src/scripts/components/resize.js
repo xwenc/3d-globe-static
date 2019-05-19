@@ -6,11 +6,8 @@ export default function resize(renderer, camera) {
   container.height = innerHeight;
   container.style.width = `${innerWidth}px`;
   container.style.height = `${innerHeight}px`;
+  
   camera.aspect = container.offsetWidth / container.offsetHeight;
-
-    
-  console.log("camera", camera.aspect)
-
   camera.updateProjectionMatrix();
   renderer.setSize(container.offsetWidth, container.offsetHeight);
 }

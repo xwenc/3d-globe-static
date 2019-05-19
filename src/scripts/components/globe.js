@@ -2,7 +2,6 @@ import {
   Group,
   Mesh,
   MeshBasicMaterial,
-  MeshLambertMaterial,
   SphereGeometry,
   TextureLoader
 } from "three";
@@ -12,7 +11,6 @@ import { GLOBE_SEGMENTS, RADIUS } from "../default";
 const textureLoader = texture => {
   return new Promise((resolve, reject) => {
     let sphere = new Mesh();
-    console.log("new sphere", sphere);
     new TextureLoader().load(
       texture,
       map => {
@@ -22,7 +20,6 @@ const textureLoader = texture => {
           GLOBE_SEGMENTS
         );
         sphere.material = new MeshBasicMaterial({ map });
-        console.log("loaded sphere", sphere);
         resolve(sphere);
       },
       undefined,
