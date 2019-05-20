@@ -3,8 +3,7 @@ import {
   Group,
   SphereGeometry,
   MeshBasicMaterial,
-  Color,
-  Vector3
+  Color
 } from "three";
 import { coordinatesToPosition } from "../utils";
 import { RADIUS } from "../default";

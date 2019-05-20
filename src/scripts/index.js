@@ -8,6 +8,7 @@ import "../styles/index.scss";
 
 // Local components
 import addGlobe from "./components/globe";
+import addLine from "./components/line";
 import addMarker from "./components/marker";
 import addCamera from "./components/camera";
 import addRenderer from "./components/renderer";
@@ -46,6 +47,43 @@ const data = [
   }
 ];
 
+//lines data
+
+const dataLines = [
+  [
+    {
+      id: 1,
+      city: "Sydney",
+      color: "red",
+      coordinates: [-33.8688, 151.2093],
+      value: 25
+    },
+    {
+      id: 4,
+      city: "Shanghai",
+      color: "green",
+      coordinates: [31.2304, 121.4737],
+      value: 25
+    }
+  ],
+  [
+    {
+      id: 3,
+      city: "Hobart",
+      color: "yellow",
+      coordinates: [-42.8821, 147.3272],
+      value: 25
+    },
+    {
+      id: 4,
+      city: "Shanghai",
+      color: "green",
+      coordinates: [31.2304, 121.4737],
+      value: 25
+    }
+  ]
+];
+
 // Three group objects
 const groups = {
   main: null, // A group containing everything
@@ -65,9 +103,13 @@ const setupScene = () => {
   groups.main = new THREE.Group();
   groups.main.name = "Main";
 
-  // Add markers 
+  // Add markers
   groups.markers = addMarker(data);
   groups.main.add(groups.markers);
+
+  //Add lines
+  groups.lines = addLine(dataLines);
+  groups.main.add(groups.lines);
 
   // Render objects
   addGlobe({ texture: map }).then(res => {
@@ -77,7 +119,7 @@ const setupScene = () => {
     // Add the main group to the scene
     scene.add(groups.main);
 
-    console.log("groups", groups)
+    console.log("groups", groups);
     // Start the requestAnimationFrame loop
     render();
   });

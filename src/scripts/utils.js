@@ -28,6 +28,46 @@ export const coordinatesToPosition = (coordinates, radius) => {
   return [x, y, z];
 };
 
+export const returnCurveCoordinates = (
+  startCoordinates,
+  endCoordinates,
+  radius
+) => {
+  // Calculate the starting and end point
+  const start = coordinatesToPosition(startCoordinates, radius);
+  const end = coordinatesToPosition(endCoordinates, radius);
+
+  // Calculate the mid-point
+  const midPointX = (start[0] + end[0]) / 2;
+  const midPointY = (start[1] + end[1]) / 2;
+  const midPointZ = (start[2] + end[2]) / 2;
+
+  // Calculate the distance between the two coordinates
+  let distance = Math.pow(end[0] - start[0], 2);
+  distance += Math.pow(end[1] - start[1], 2);
+  distance += Math.pow(end[2] - start[2], 2);
+  distance = Math.sqrt(distance);
+
+  // Calculate the multiplication value
+  let multipleVal = Math.pow(midPointX, 2);
+  multipleVal += Math.pow(midPointY, 2);
+  multipleVal += Math.pow(midPointZ, 2);
+  multipleVal = Math.pow(distance, 2) / multipleVal;
+  multipleVal = multipleVal * 0.3;
+
+  // Apply the vector length to get new mid-points
+  const midX = midPointX + multipleVal * midPointX;
+  const midY = midPointY + multipleVal * midPointY;
+  const midZ = midPointZ + multipleVal * midPointZ;
+
+  // Return set of coordinates
+  return {
+    start,
+    mid: [midX, midY, midZ],
+    end
+  };
+};
+
 export const tween = (
   from,
   to,
