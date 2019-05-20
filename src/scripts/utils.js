@@ -81,5 +81,6 @@ export const tween = (
     .easing(TWEEN.Easing[easingFunction[0]][easingFunction[1]])
     .on("update", onUpdate)
     .on("complete", onEnd)
+    .repeat(Infinity)
     .start();
 };

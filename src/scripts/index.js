@@ -1,4 +1,6 @@
 import * as THREE from "three";
+import * as TWEEN from "es6-tween";
+import { tween } from "./utils";
 
 //Local map;
 import map from "../images/map.png";
@@ -8,7 +10,8 @@ import "../styles/index.scss";
 
 // Local components
 import addGlobe from "./components/globe";
-import addLine from "./components/line";
+import { getPoints, addLine } from "./components/line";
+import { addLineDots, animatedDots } from "./components/lineDot";
 import addMarker from "./components/marker";
 import addCamera from "./components/camera";
 import addRenderer from "./components/renderer";
@@ -90,7 +93,7 @@ const groups = {
   globe: null, // A group containing the globe sphere (and globe dots)
   markers: null, // A group containing the globe dots
   lines: null, // A group containing the lines between each country
-  lineDots: null // A group containing the line dots
+  lineDots: null // A group containing the line dots,
 };
 
 const setupScene = () => {
@@ -105,12 +108,77 @@ const setupScene = () => {
 
   // Add markers
   groups.markers = addMarker(data);
+  groups.markers.name = "Markers";
   groups.main.add(groups.markers);
 
   //Add lines
-  groups.lines = addLine(dataLines);
+  groups.lines = new THREE.Group();
+  groups.lines.name = "Lines";
+
+  dataLines.forEach((country, index) => {
+    let points = getPoints(country);
+    //Animate line
+    tween(
+      { num: 0 },
+      { num: 119 },
+      2500,
+      ["Linear", "None"],
+      ({ num }) => {
+        // console.log("num", Math.floor(num), points.slice(Math.floor(num)))
+        let start, end;
+        if(num < 20) {
+          start = 0;
+          end = num + 1;
+        } else if (num > 100) {
+          start = num - 20;
+          end = 100;
+        } else {
+          start = num - 20;
+          end = num + 1;
+        };
+
+        const line = addLine(points.slice(Math.floor(start), Math.floor(end)));
+        groups.lines.children[index] = line;
+      }
+    );
+  });
+
   groups.main.add(groups.lines);
 
+  //Add line dots
+  // groups.lineDots = addLineDots(groups.lines);
+  // groups.lineDots.name = "LineDots";
+
+  //Animate line dots
+  // for (let index = 0; index < groups.lineDots.children.length; index++) {
+  //   const lineDots = groups.lineDots.children[index];
+  //   // console.log(lineDots.children.length)
+  //   tween(
+  //     { num: 0 },
+  //     { num: lineDots.children.length },
+  //     3500,
+  //     ["Linear", "None"],
+  //     ({ num }) => {
+  //       for (let i = 0; i < lineDots.children.length; i++) {
+  //         if ( Math.floor(num) < 30) {
+  //           for(let n = 0; n < Math.floor(num); n++) {
+  //             groups.lineDots.children[index]["children"][i + n]["visible"] = true;
+  //           }
+  //           i +=  Math.floor(num);
+  //         } else if (i === Math.floor(num)) {
+  //           for(let n = 0; n < 30; n++) {
+  //             groups.lineDots.children[index]["children"][i + n]["visible"] = true;
+  //           }
+  //           i += 30;
+  //         } else {
+  //           groups.lineDots.children[index]["children"][i]["visible"] = false;
+  //         }
+  //       }
+  //     }
+  //   );
+  // }
+
+  groups.main.add(groups.lineDots);
   // Render objects
   addGlobe({ texture: map }).then(res => {
     groups.globe = res;
@@ -119,7 +187,6 @@ const setupScene = () => {
     // Add the main group to the scene
     scene.add(groups.main);
 
-    console.log("groups", groups);
     // Start the requestAnimationFrame loop
     render();
   });
@@ -133,6 +200,8 @@ const setupScene = () => {
 
     controls.update();
 
+    TWEEN.update();
+
     render();
   }
 
@@ -143,6 +212,8 @@ const setupScene = () => {
   resize(renderer, camera);
 
   animate();
+
+  console.log("groups", groups);
 };
 
 /* INITIALISATION */
