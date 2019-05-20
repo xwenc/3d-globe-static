@@ -30,7 +30,7 @@ const textureLoader = texture => {
   });
 };
 
-export default async function({ texture }) {
+export default async ({ texture }) => {
   let globe = new Group();
   let sphere = await textureLoader(texture);
   globe.add(sphere);
