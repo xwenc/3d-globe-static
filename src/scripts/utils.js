@@ -53,7 +53,7 @@ export const returnCurveCoordinates = (
   multipleVal += Math.pow(midPointY, 2);
   multipleVal += Math.pow(midPointZ, 2);
   multipleVal = Math.pow(distance, 2) / multipleVal;
-  multipleVal = multipleVal * 0.3;
+  multipleVal = multipleVal * 0.35;
 
   // Apply the vector length to get new mid-points
   const midX = midPointX + multipleVal * midPointX;

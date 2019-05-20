@@ -46,6 +46,6 @@ export default data => {
     curveObject._path = geometry.vertices;
     lines.add(curveObject);
   });
-
+  
   return lines;
 };
