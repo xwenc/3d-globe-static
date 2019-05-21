@@ -21,7 +21,7 @@ export const MARKER_ACTIVE_ANIMATION_DURATION = 100;
 export const MARKER_ACTIVE_ANIMATION_EASING_FUNCTION = ["Cubic", "In"];
 
 export const defaultCameraOptions = {
-  autoRotateSpeed: 0.02,
+  autoRotateSpeed: -0.05,
   distanceRadiusScale: 3,
   enableAutoRotate: true,
   enableRotate: true,
@@ -31,13 +31,6 @@ export const defaultCameraOptions = {
   minPolarAngle: CAMERA_MIN_POLAR_ANGLE,
   rotateSpeed: 0.02,
   zoomSpeed: 1
-};
-
-export const defaultFocusOptions = {
-  animationDuration: 1000,
-  distanceRadiusScale: 1.5,
-  easingFunction: ["Cubic", "Out"],
-  enableDefocus: true
 };
 
 export const defaultGlobeOptions = {
@@ -60,9 +53,9 @@ export const defaultGlobeOptions = {
 
 export const defaultLightOptions = {
   ambientLightColor: "white",
-  ambientLightIntensity: 0.8,
+  ambientLightIntensity: 0.7,
   pointLightColor: "white",
-  pointLightIntensity: 1,
+  pointLightIntensity: 0.5,
   pointLightPositionRadiusScales: [-2, 1, -1]
 };
 

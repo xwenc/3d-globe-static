@@ -5,11 +5,8 @@ export default function () {
   let renderer = new WebGLRenderer({
     canvas,
     antialias: true,
-    alpha: true,
-    shadowMapEnabled: false
+    alpha: true
   });
   renderer.setSize(canvas.clientWidth, canvas.clientHeight);
-  renderer.setPixelRatio(1);
-  renderer.setClearColor(0x000000, 0);
   return renderer;
 }

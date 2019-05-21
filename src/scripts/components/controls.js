@@ -17,6 +17,6 @@ export default (camera, el) => {
   controls.minPolarAngle = defaultCameraOptions.minPolarAngle;
   controls.rotateSpeed = defaultCameraOptions.rotateSpeed;
   controls.zoomSpeed = defaultCameraOptions.zoomSpeed;
-
+  
   return controls;
 };

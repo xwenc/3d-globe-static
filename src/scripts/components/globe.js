@@ -1,7 +1,7 @@
 import {
   Group,
   Mesh,
-  MeshBasicMaterial,
+  MeshLambertMaterial,
   SphereGeometry,
   TextureLoader
 } from "three";
@@ -19,7 +19,7 @@ const textureLoader = texture => {
           GLOBE_SEGMENTS,
           GLOBE_SEGMENTS
         );
-        sphere.material = new MeshBasicMaterial({ map });
+        sphere.material = new MeshLambertMaterial({ map });
         resolve(sphere);
       },
       undefined,

@@ -18,6 +18,10 @@ import addRenderer from "./components/renderer";
 import addControls from "./components/controls";
 import resize from "./components/resize";
 
+// Look At
+
+const lookAt = [0, 120];
+
 // Fake markers
 const data = [
   {
@@ -99,7 +103,7 @@ const groups = {
 const setupScene = () => {
   let renderer = addRenderer();
   let scene = new THREE.Scene();
-  let camera = addCamera(data[0].coordinates);
+  let camera = addCamera(lookAt);
   let controls = addControls(camera, renderer.domElement);
 
   // Main group that contains everything
@@ -145,45 +149,12 @@ const setupScene = () => {
 
   groups.main.add(groups.lines);
 
-  //Add line dots
-  // groups.lineDots = addLineDots(groups.lines);
-  // groups.lineDots.name = "LineDots";
-
-  //Animate line dots
-  // for (let index = 0; index < groups.lineDots.children.length; index++) {
-  //   const lineDots = groups.lineDots.children[index];
-  //   // console.log(lineDots.children.length)
-  //   tween(
-  //     { num: 0 },
-  //     { num: lineDots.children.length },
-  //     3500,
-  //     ["Linear", "None"],
-  //     ({ num }) => {
-  //       for (let i = 0; i < lineDots.children.length; i++) {
-  //         if ( Math.floor(num) < 30) {
-  //           for(let n = 0; n < Math.floor(num); n++) {
-  //             groups.lineDots.children[index]["children"][i + n]["visible"] = true;
-  //           }
-  //           i +=  Math.floor(num);
-  //         } else if (i === Math.floor(num)) {
-  //           for(let n = 0; n < 30; n++) {
-  //             groups.lineDots.children[index]["children"][i + n]["visible"] = true;
-  //           }
-  //           i += 30;
-  //         } else {
-  //           groups.lineDots.children[index]["children"][i]["visible"] = false;
-  //         }
-  //       }
-  //     }
-  //   );
-  // }
-
-  groups.main.add(groups.lineDots);
   // Render objects
   addGlobe({ texture: map }).then(res => {
     groups.globe = res;
     groups.main.add(groups.globe);
 
+    scene.add(camera);
     // Add the main group to the scene
     scene.add(groups.main);
 

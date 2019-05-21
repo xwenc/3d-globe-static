@@ -2,6 +2,7 @@ import {
   Group,
   Vector3,
   Geometry,
+  BufferGeometry,
   Color,
   QuadraticBezierCurve3,
   Mesh
