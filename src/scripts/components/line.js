@@ -1,14 +1,12 @@
 import {
-  Group,
+  Line,
   Vector3,
-  Geometry,
+  LineBasicMaterial,
   BufferGeometry,
   Color,
   QuadraticBezierCurve3,
-  Mesh
 } from "three";
-import { MeshLine, MeshLineMaterial } from "three.meshline";
-import { returnCurveCoordinates, tween } from "../utils";
+import { returnCurveCoordinates } from "../utils";
 import { RADIUS } from "../default";
 
 const getPoints = (country, num = 100) => {
@@ -32,17 +30,12 @@ const getPoints = (country, num = 100) => {
 
 const addLine = points => {
   const color = new Color("#615fb8");
-  let line = new MeshLine();
-  let geometry = new Geometry();
-  const material = new MeshLineMaterial({
-    color,
-    transparent: true,
-    opacity: 0.5
+  let geometry = new BufferGeometry();
+  const material = new LineBasicMaterial({
+    color
   });
-  geometry.vertices = points;
-  line.setGeometry(geometry);
-
-  return new Mesh(line.geometry, material);
+  geometry.setFromPoints(points);
+  return new Line(geometry, material);
 };
 
 export { getPoints, addLine };

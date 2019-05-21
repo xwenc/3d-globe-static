@@ -43,7 +43,6 @@
     "core-js": "^3.0.1",
     "es6-tween": "^5.5.10",
     "three": "^0.104.0",
-    "three-orbitcontrols": "^2.102.1",
-    "three.meshline": "^1.2.0"
+    "three-orbitcontrols": "^2.102.1"
   }
 }
