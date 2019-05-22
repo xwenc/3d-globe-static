@@ -24,9 +24,7 @@ body {
   -moz-font-feature-settings: "liga" on;
   color: #FFFFFF;
   overflow-x: hidden;
-  background: #8D07C8;
-  background: linear-gradient(135deg, #8D07C8 0%, #260F77 50%, #030B3A 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#8D07C8', endColorstr='${colourEnd}', GradientType=1);
+  background:rgba(0,0,0,0.2);
 }
 
 @-webkit-keyframes pulse {

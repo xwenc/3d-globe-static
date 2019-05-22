@@ -28,12 +28,13 @@ export default lookAt => {
 
   // Camera position
   camera.position.z = RADIUS * 2.2;
+  camera.up.set( 0.002, 0.005, 0 );
+    console.log("camera", camera)
   if (lookAt) {
     const position = coordinatesToPosition(
       lookAt,
       RADIUS * 2.2
     );
-    console.log(position)
     camera.position.set(position[0],position[1],position[2]);
   }
 

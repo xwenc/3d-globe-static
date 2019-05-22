@@ -11,7 +11,6 @@ import "../styles/index.scss";
 // Local components
 import addGlobe from "./components/globe";
 import { getPoints, addLine } from "./components/line";
-import { addLineDots, animatedDots } from "./components/lineDot";
 import addMarker from "./components/marker";
 import addCamera from "./components/camera";
 import addRenderer from "./components/renderer";
@@ -20,7 +19,7 @@ import resize from "./components/resize";
 
 // Look At
 
-const lookAt = [0, 120];
+const lookAt = [10, 120];
 
 // Fake markers
 const data = [
@@ -122,29 +121,20 @@ const setupScene = () => {
   dataLines.forEach((country, index) => {
     let points = getPoints(country);
     //Animate line
-    tween(
-      { num: 0 },
-      { num: 119 },
-      2500,
-      ["Linear", "None"],
-      ({ num }) => {
-        // console.log("num", Math.floor(num), points.slice(Math.floor(num)))
-        let start, end;
-        if(num < 20) {
-          start = 0;
-          end = num + 1;
-        } else if (num > 100) {
-          start = num - 20;
-          end = 100;
-        } else {
-          start = num - 20;
-          end = num + 1;
-        };
-
-        const line = addLine(points.slice(Math.floor(start), Math.floor(end)));
-        groups.lines.children[index] = line;
+    tween({ num: 0 }, { num: 200 }, 2500, ["Linear", "None"], ({ num }) => {
+      // console.log("num", Math.floor(num), points.slice(Math.floor(num)))
+      let start, end;
+      if (num < 100) {
+        start = 0;
+        end = num + 1;
+      } else {
+        start = num - 100;
+        end = num + 1;
       }
-    );
+
+      const line = addLine(points.slice(Math.floor(start), Math.floor(end)));
+      groups.lines.children[index] = line;
+    });
   });
 
   groups.main.add(groups.lines);

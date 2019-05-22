@@ -1,5 +1,10 @@
 import OrbitControls from "three-orbitcontrols";
-import {CAMERA_DAMPING_FACTOR, RADIUS, CAMERA_MIN_DISTANCE_RADIUS_SCALE, defaultCameraOptions} from "../default";
+import {
+  CAMERA_DAMPING_FACTOR,
+  RADIUS,
+  CAMERA_MIN_DISTANCE_RADIUS_SCALE,
+  defaultCameraOptions
+} from "../default";
 
 export default (camera, el) => {
   let controls = new OrbitControls(camera, el);
@@ -17,6 +22,20 @@ export default (camera, el) => {
   controls.minPolarAngle = defaultCameraOptions.minPolarAngle;
   controls.rotateSpeed = defaultCameraOptions.rotateSpeed;
   controls.zoomSpeed = defaultCameraOptions.zoomSpeed;
-  
+
+  // stop autorotate after the first interaction
+  controls.addEventListener("start", function() {
+    window.autorotateTimeout && clearTimeout(window.autorotateTimeout);
+    controls.autoRotate = false;
+  });
+
+  // restart autorotate after the last interaction & an idle time has passed
+  controls.addEventListener("end", function() {
+    window.autorotateTimeout = setTimeout(function() {
+      controls.autoRotate = true;
+    }, 2000);
+  });
+
+  console.log("contorls", controls)
   return controls;
 };
